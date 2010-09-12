@@ -20,8 +20,9 @@ pm = re.compile('project manager', re.IGNORECASE)
 ia = re.compile('information architect', re.IGNORECASE)
 excel = re.compile('excel', re.IGNORECASE)
 junior = re.compile('junior', re.IGNORECASE)
+sales_engineer = re.compile('sales engineer', re.IGNORECASE)
 
-tdd = re.compile('(tdd)|(test-?driven-?development)', re.IGNORECASE)
+tdd = re.compile('(tdd)|(test[- ]driven[- ]development)', re.IGNORECASE)
 
 class Filter:
     def title(self, title):
@@ -48,6 +49,9 @@ class Filter:
 
         if junior.search(title):
            return False
+
+        if sales_engineer.search(title):
+            return False
         
         return True
 
@@ -119,14 +123,19 @@ good_jobs = []
 bad_jobs = []
 for job in jobs:
     soup = beautiful_soupify_url(job.link)
-    content = soup.find('div', id="userbody").find(text=True)
+    content_list = soup.find('div', id="userbody").findAll(text=True)
+
+    content = ' '.join(content_list)
     if filter.content(content):
         good_jobs.append(job)
     else:
         bad_jobs.append(job)
 
 
+
+email_contents = ''
 for good_job in good_jobs:
+    email_contents += good_job.link + "\n"
     print good_job
 
 print ''
@@ -141,3 +150,35 @@ print "FILTERED title JOBS-------------------"
 
 for job in filtered_jobs:
     print job
+
+
+
+
+
+
+
+
+
+# Import smtplib for the actual sending function
+import smtplib
+
+# Import the email modules we'll need
+from email.mime.text import MIMEText
+
+
+
+# Create a text/plain message
+msg = MIMEText(email_contents)
+
+# me == the sender's email address
+# you == the recipient's email address
+msg['Subject'] = 'The contents of mama' 
+msg['From'] = 'jacobodonnell@gmail.com'
+msg['To'] = 'jacobodonnell@gmail.com'
+
+# Send the message via our own SMTP server, but don't include the
+# envelope header.
+s = smtplib.SMTP()
+s.connect()
+s.sendmail('jacobodonnell@gmail.com', ['jacobodonnell@gmail.com'], msg.as_string())
+s.quit()
