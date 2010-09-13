@@ -10,14 +10,13 @@ def beautiful_soupify_url(url):
     html = urllib2.urlopen(url).read()
     return BeautifulSoup(html)
 
-craigs_list = CraigsList()
-
-soup = beautiful_soupify_url(craigs_list.get_job_listing_url())
-jssp = JobSiteSoupParser(soup, craigs_list)
-
-links = jssp.get_todays_links()
-
 filter = Filter()
+craigs_list = CraigsList()
+jssp = JobSiteSoupParser(craigs_list)
+
+list_soup = beautiful_soupify_url(craigs_list.get_job_listing_url())
+links = jssp.get_todays_links(list_soup)
+
 
 jobs = []
 filtered_jobs = []
@@ -30,8 +29,8 @@ for link in links:
 good_jobs = []
 bad_jobs = []
 for job in jobs:
-    soup = beautiful_soupify_url(job.get_link())
-    content = craigs_list.parse_content(soup)
+    content_soup = beautiful_soupify_url(job.get_link())
+    content = jssp.parse_content(content_soup)
     job.set_content(content)
 
     if filter.content(job.get_content()):
