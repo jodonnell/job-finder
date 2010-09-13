@@ -1,4 +1,5 @@
-from datetime import datetime, timedelta
+import datetime
+import sys
 import re
 
 class CraigsList:
@@ -9,11 +10,16 @@ class CraigsList:
         return self._job_listings_url
 
     def get_todays_links(self, job_list_soup):
+        test_date = datetime.date(2010, 9, 11)
+#        self._get_days_links(job_list_soup, datetime.today())
+        return self._get_days_links(job_list_soup, test_date)
+
+    def _get_days_links(self, job_list_soup, day):
         dates = job_list_soup.findAll("h4", {"class":"ban"})
 
         today = None
 
-        yesterday = datetime.today() - timedelta(2) #- timedelta(1)
+        yesterday = day - datetime.timedelta(1) #- timedelta(1)
         for day in dates:
             yesterday_regex = str(yesterday.day) + '$'
             if re.search(yesterday_regex, day.string):

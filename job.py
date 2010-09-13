@@ -16,3 +16,6 @@ class Job:
 
     def get_link(self):
         return self._link
+
+    def get_title(self):
+        return self._title
