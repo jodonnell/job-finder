@@ -10,8 +10,8 @@ class CraigsList:
         return self._job_listings_url
 
     def get_todays_links(self, job_list_soup):
+#       return self._get_days_links(job_list_soup, datetime.today())
         test_date = datetime.date(2010, 9, 11)
-#        self._get_days_links(job_list_soup, datetime.today())
         return self._get_days_links(job_list_soup, test_date)
 
     def _get_days_links(self, job_list_soup, day):
