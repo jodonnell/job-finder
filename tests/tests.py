@@ -23,7 +23,8 @@ class TestCraigsList(unittest.TestCase):
         test_date = datetime.date(2010, 9, 11)
         todays_links = self.craigs_list._get_days_links(cl_list_soup, test_date)
 
-        self.assertEqual(todays_links[0].__str__(), '<a href="http://newyork.craigslist.org/mnh/sof/1950616953.html">Software Engineer (Hadoop)</a>')
+        self.assertEqual(todays_links[0].__str__(), 
+                         '<a href="http://newyork.craigslist.org/mnh/sof/1950616953.html">Software Engineer (Hadoop)</a>')
 
     def test_parse_content(self):
         cl_post_soup = self.get_test_file_to_soup('cl_good_job.html')
