@@ -1,15 +1,16 @@
 
 # A simple class that holds the title, link and contents of a job.
 class Job:
-    def __init__(self, title, link):
+    def __init__(self, title, link, site):
         self._title = title
         self._link = link
+        self._site = site
        
     def __str__(self):
         return self._title
 
-    def set_content(self, content):
-        self._content = content
+    def set_content(self, content_soup):
+        self._content = self._site.parse_content(content_soup)
 
     def get_content(self):
         return self._content
