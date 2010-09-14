@@ -12,6 +12,8 @@ class Filter:
         re.compile('excel', re.IGNORECASE),
         re.compile('junior', re.IGNORECASE),
         re.compile('sales engineer', re.IGNORECASE),
+        re.compile('product manager', re.IGNORECASE),
+        re.compile('analyst', re.IGNORECASE),
         ]
 
     content_filter_includes =  [
