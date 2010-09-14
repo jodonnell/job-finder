@@ -2,19 +2,16 @@ from sites.craigs_list import CraigsList
 from job_filter import JobFilter
 
 jf = JobFilter([CraigsList()])
-jf.get_todays_links()
-jf.filter_on_titles()
-jf.get_postings_content()
-jf.filter_on_content()
+jobs, bad_content_jobs, bad_titled_jobs = jf.get_todays_jobs()
 
-for job in jf._jobs:
+for job in jobs:
     print job
 
 print '----- bad'
-for job in jf._bad_content_jobs:
+for job in bad_content_jobs:
     print job
 
 print '----- badder'
-for job in jf._bad_titled_jobs:
+for job in bad_titled_jobs:
     print job
 

@@ -15,7 +15,14 @@ class JobFilter(object):
 
         self._filter = Filter()
 
-    def get_todays_links(self):
+    def get_todays_jobs(self):
+        self._get_todays_links()
+        self._filter_on_titles()
+        self._get_postings_content()
+        self._filter_on_content()
+        return (self._jobs, self._bad_content_jobs, self.._bad_titled_jobs)
+
+    def _get_todays_links(self):
         for site in self._sites:
             list_soup = self._beautiful_soupify_url(site.get_job_listing_url())
             links = site.get_todays_links(list_soup)
@@ -26,7 +33,7 @@ class JobFilter(object):
 
         self._jobs = jobs
 
-    def filter_on_titles(self):
+    def _filter_on_titles(self):
         get_posting_jobs = []
         for job in self._jobs:
             if self._filter.title(job.get_title()):
@@ -36,12 +43,12 @@ class JobFilter(object):
 
         self._jobs = get_posting_jobs
     
-    def get_postings_content(self):
+    def _get_postings_content(self):
         for job in self._jobs:
             content_soup = self._beautiful_soupify_url(job.get_link())
             job.set_content(content_soup)
 
-    def filter_on_content(self):
+    def _filter_on_content(self):
         good_jobs = []
         for job in self._jobs:
             if self._filter.content(job.get_content()):
