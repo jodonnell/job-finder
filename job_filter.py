@@ -20,7 +20,7 @@ class JobFilter(object):
         self._filter_on_titles()
         self._get_postings_content()
         self._filter_on_content()
-        return (self._jobs, self._bad_content_jobs, self.._bad_titled_jobs)
+        return (self._jobs, self._bad_content_jobs, self._bad_titled_jobs)
 
     def _get_todays_links(self):
         for site in self._sites:
