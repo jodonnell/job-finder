@@ -14,10 +14,18 @@ class Filter:
         re.compile('sales engineer', re.IGNORECASE),
         re.compile('product manager', re.IGNORECASE),
         re.compile('analyst', re.IGNORECASE),
+        re.compile('entry[- ]level', re.IGNORECASE),
+        re.compile('\bux\b', re.IGNORECASE),
+        re.compile('\bflash\b', re.IGNORECASE),
+        re.compile('\boracle\b', re.IGNORECASE),
+        re.compile('\bsql\b', re.IGNORECASE),
         ]
 
     content_filter_includes =  [
-        re.compile('(tdd)|(test[- ]driven[- ]development)', re.IGNORECASE)
+        re.compile('(tdd)|(test[- ]driven[- ]development)', re.IGNORECASE),
+        re.compile('\bXP\b'),
+        re.compile('extreme programming', re.IGNORECASE),
+        re.compile('pair programming', re.IGNORECASE),
     ]
 
     # The title excludes jobs based on regexes
